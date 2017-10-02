@@ -1,6 +1,6 @@
 {
   "name": "aurelia-trumbowyg-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A trumbowyg wrapper for Aurelia.",
   "scripts": {
     "prepush": "gulp prepare-release --bump=patch",

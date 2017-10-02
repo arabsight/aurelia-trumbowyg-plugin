@@ -20,7 +20,6 @@ exports.configure = configure;
 var _aureliaPal = require('aurelia-pal');
 
 function configure(aureliaConfig, editorConfig) {
-
     if (!editorConfig || (typeof editorConfig === 'undefined' ? 'undefined' : _typeof(editorConfig)) === 'object') {
         var options = Object.assign({}, defaultConfig, editorConfig);
         aureliaConfig.container.registerInstance('trumbowyg-editor-config', options);
