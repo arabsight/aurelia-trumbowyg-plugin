@@ -3,55 +3,57 @@
 ## Install
 
 ```shell
-  npm install --save jquery trumbowyg aurelia-trumbowyg-plugin
-  ```
+npm i jquery trumbowyg aurelia-trumbowyg-plugin
+```
 
-## Building The Code
+## Bundle (CLI)
 
-To build the code, follow these steps.
+```json
+"jquery", 
+{
+    "name": "trumbowyg",
+    "path": "../node_modules/trumbowyg/dist",
+    "main": "trumbowyg",
+    "deps": ["jquery"],
+    "resources": [
+        "ui/trumbowyg.css"
+    ]
+},
+{
+    "name": "aurelia-trumbowyg-plugin",
+    "path": "../node_modules/aurelia-trumbowyg-plugin/dist/amd",
+    "main": "index"
+}
+```
 
-1. Ensure that [NodeJS](http://nodejs.org/) is installed. This provides the platform on which the build tooling runs.
-2. From the project folder, execute the following command:
+## Register
 
-  ```shell
-  npm install
-  ```
-3. Ensure that [Gulp](http://gulpjs.com/) is installed. If you need to install it, use the following command:
+```js
+aurelia.use.plugin('aurelia-trumbowyg-plugin');
+```
 
-  ```shell
-  npm install -g gulp
-  ```
-4. To build the code, you can now run:
+## Usage
 
-  ```shell
-  gulp build
-  ```
-5. You will find the compiled code in the `dist` folder, available in three module formats: AMD, CommonJS and ES6.
+```html
+<require from="trumbowyg/ui/trumbowyg.css"></require>
 
-6. See `gulpfile.js` for other tasks related to generating the docs and linting.
+<trumbowyg-editor value.bind="message"></trumbowyg-editor>
+```
 
-## Running The Tests
+## Options
 
-To run the unit tests, first ensure that you have followed the steps above in order to install all dependencies and successfully build the library. Once you have done that, proceed with these additional steps:
+For global options pass a quil config object when registering the plugin:
 
-1. Ensure that the [Karma](http://karma-runner.github.io/) CLI is installed. If you need to install it, use the following command:
+```js
+let options = { /* trumbowyg options */ };
 
-  ```shell
-  npm install -g karma-cli
-  ```
-2. Ensure that [jspm](http://jspm.io/) is installed. If you need to install it, use the following commnand:
+aurelia.use.plugin('aurelia-trumbowyg-plugin', options);
+```
 
-  ```shell
-  npm install -g jspm
-  ```
-3. Install the client-side dependencies with jspm:
+If you want per-instance options use the bindable `options` property:
 
-  ```shell
-  jspm install
-  ```
-
-4. You can now run the tests with this command:
-
-  ```shell
-  karma start
-  ```
+```html
+<trumbowyg-editor value.bind="content"
+        options.bind="{ /* trumbowyg options */ }">
+</trumbowyg-editor>
+```
