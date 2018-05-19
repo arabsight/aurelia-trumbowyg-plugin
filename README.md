@@ -32,6 +32,16 @@ npm i jquery trumbowyg aurelia-trumbowyg-plugin
 aurelia.use.plugin('aurelia-trumbowyg-plugin');
 ```
 
+## WebPack
+
+```js
+import svgPath from 'trumbowyg/dist/ui/icons.svg';
+
+...
+aurelia.use.plugin(PLATFORM.moduleName('aurelia-trumbowyg-plugin'), {svgPath});
+...
+```
+
 ## Usage
 
 ```html
@@ -46,7 +56,7 @@ For global options pass a trumbowyg config object when registering the plugin:
 
 ```js
 let options = {
-    /* trumbowyg options */
+  /* trumbowyg options */
 };
 
 aurelia.use.plugin('aurelia-trumbowyg-plugin', options);
