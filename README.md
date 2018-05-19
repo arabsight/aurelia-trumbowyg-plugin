@@ -6,10 +6,10 @@
 npm i jquery trumbowyg aurelia-trumbowyg-plugin
 ```
 
-## Bundle (CLI)
+## Bundle (CLI requirejs)
 
 ```json
-"jquery", 
+"jquery",
 {
     "name": "trumbowyg",
     "path": "../node_modules/trumbowyg/dist",
@@ -42,10 +42,12 @@ aurelia.use.plugin('aurelia-trumbowyg-plugin');
 
 ## Options
 
-For global options pass a quil config object when registering the plugin:
+For global options pass a trumbowyg config object when registering the plugin:
 
 ```js
-let options = { /* trumbowyg options */ };
+let options = {
+    /* trumbowyg options */
+};
 
 aurelia.use.plugin('aurelia-trumbowyg-plugin', options);
 ```

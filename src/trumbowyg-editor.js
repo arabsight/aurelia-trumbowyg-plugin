@@ -9,58 +9,59 @@ import { bindable, inlineView, customElement } from 'aurelia-templating';
 @customElement('trumbowyg-editor')
 @inject(DOM.Element)
 export class TrumbowygEditor {
-    @bindable() options;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
+  @bindable() options;
+  @bindable({ defaultBindingMode: bindingMode.twoWay })
+  value;
 
-    constructor(element) {
-        this.element = element;
-    }
+  constructor(element) {
+    this.element = element;
+  }
 
-    bind() {
-        let editorConfig = Container.instance.get('trumbowyg-editor-config');
-        this.options = Object.assign({}, editorConfig, this.options);
-    }
+  bind() {
+    let editorConfig = Container.instance.get('trumbowyg-editor-config');
+    this.options = Object.assign({}, editorConfig, this.options);
+  }
 
-    attached() {
-        const editor = $(this.editor).trumbowyg(this.options);
+  attached() {
+    const editor = $(this.editor).trumbowyg(this.options);
 
-        this.registerEvents(editor);
+    this.registerEvents(editor);
 
-        editor.on('tbwchange', () => {
-            this.value = $(this.editor).trumbowyg('html');
+    editor.on('tbwchange', () => {
+      this.value = $(this.editor).trumbowyg('html');
+    });
+
+    $(this.editor).trumbowyg('html', this.value);
+  }
+
+  registerEvents(editor) {
+    const events = [
+      'tbwfocus',
+      'tbwblur',
+      'tbwinit',
+      'tbwresize',
+      'tbwpaste',
+      'tbwopenfullscreen',
+      'tbwclosefullscreen',
+      'tbwclose'
+    ];
+
+    events.forEach(name => {
+      editor.on(name, event => {
+        const _event = new CustomEvent(name, {
+          detail: event.target.value,
+          bubbles: true
         });
+        this.element.dispatchEvent(_event);
+      });
+    });
+  }
 
-        $(this.editor).trumbowyg('html', this.value);
-    }
+  valueChanged(newValue) {
+    $(this.editor).trumbowyg('html', newValue);
+  }
 
-    registerEvents(editor) {
-        const events = [
-            'tbwfocus',
-            'tbwblur',
-            'tbwinit',
-            'tbwresize',
-            'tbwpaste',
-            'tbwopenfullscreen',
-            'tbwclosefullscreen',
-            'tbwclose'
-        ];
-
-        events.forEach((name) => {
-            editor.on(name, (event) => {
-                const _event = new CustomEvent(name, {
-                    detail: event.target.value,
-                    bubbles: true
-                });
-                this.element.dispatchEvent(_event);
-            });
-        });
-    }
-
-    // valueChanged(newValue) {
-    //
-    // }
-
-    detached() {
-        $(this.editor).trumbowyg('destroy');
-    }
+  detached() {
+    $(this.editor).trumbowyg('destroy');
+  }
 }
