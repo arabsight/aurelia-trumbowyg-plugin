@@ -56,6 +56,10 @@ export class TrumbowygEditor {
         });
     }
 
+    // valueChanged(newValue) {
+    //
+    // }
+
     detached() {
         $(this.editor).trumbowyg('destroy');
     }

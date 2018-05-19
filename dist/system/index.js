@@ -7,7 +7,7 @@ System.register(['aurelia-pal', './trumbowyg-editor'], function (_export, _conte
 
     function configure(aureliaConfig, editorConfig) {
         if (!editorConfig || (typeof editorConfig === 'undefined' ? 'undefined' : _typeof(editorConfig)) === 'object') {
-            var options = Object.assign({}, defaultConfig, editorConfig);
+            var options = Object.assign({}, editorConfig);
             aureliaConfig.container.registerInstance('trumbowyg-editor-config', options);
         }
 

@@ -21,7 +21,7 @@ var _aureliaPal = require('aurelia-pal');
 
 function configure(aureliaConfig, editorConfig) {
     if (!editorConfig || (typeof editorConfig === 'undefined' ? 'undefined' : _typeof(editorConfig)) === 'object') {
-        var options = Object.assign({}, defaultConfig, editorConfig);
+        var options = Object.assign({}, editorConfig);
         aureliaConfig.container.registerInstance('trumbowyg-editor-config', options);
     }
 
