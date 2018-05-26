@@ -65,9 +65,11 @@ export class TrumbowygEditor {
     });
   }
 
-  /*valueChanged(newValue) {
-    $(this.editor).trumbowyg('html', newValue);
-  }*/
+  valueChanged(newValue) {
+    if (newValue !== $(this.editor).trumbowyg('html')) {
+      $(this.editor).trumbowyg('html', newValue);
+    }
+  }
 
   detached() {
     $(this.editor).trumbowyg('destroy');

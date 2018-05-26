@@ -119,6 +119,12 @@ define(['exports', 'jquery', 'aurelia-pal', 'aurelia-binding', 'aurelia-dependen
       });
     };
 
+    TrumbowygEditor.prototype.valueChanged = function valueChanged(newValue) {
+      if (newValue !== (0, _jquery2.default)(this.editor).trumbowyg('html')) {
+        (0, _jquery2.default)(this.editor).trumbowyg('html', newValue);
+      }
+    };
+
     TrumbowygEditor.prototype.detached = function detached() {
       (0, _jquery2.default)(this.editor).trumbowyg('destroy');
     };

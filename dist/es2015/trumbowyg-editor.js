@@ -99,6 +99,12 @@ export let TrumbowygEditor = (_dec = inlineView('<template><div ref="editor"></d
     });
   }
 
+  valueChanged(newValue) {
+    if (newValue !== $(this.editor).trumbowyg('html')) {
+      $(this.editor).trumbowyg('html', newValue);
+    }
+  }
+
   detached() {
     $(this.editor).trumbowyg('destroy');
   }

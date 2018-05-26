@@ -122,6 +122,12 @@ var TrumbowygEditor = exports.TrumbowygEditor = (_dec = (0, _aureliaTemplating.i
     });
   };
 
+  TrumbowygEditor.prototype.valueChanged = function valueChanged(newValue) {
+    if (newValue !== (0, _jquery2.default)(this.editor).trumbowyg('html')) {
+      (0, _jquery2.default)(this.editor).trumbowyg('html', newValue);
+    }
+  };
+
   TrumbowygEditor.prototype.detached = function detached() {
     (0, _jquery2.default)(this.editor).trumbowyg('destroy');
   };

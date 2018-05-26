@@ -124,6 +124,12 @@ System.register(['jquery', 'trumbowyg', 'aurelia-pal', 'aurelia-binding', 'aurel
           });
         };
 
+        TrumbowygEditor.prototype.valueChanged = function valueChanged(newValue) {
+          if (newValue !== $(this.editor).trumbowyg('html')) {
+            $(this.editor).trumbowyg('html', newValue);
+          }
+        };
+
         TrumbowygEditor.prototype.detached = function detached() {
           $(this.editor).trumbowyg('destroy');
         };
