@@ -18,8 +18,12 @@ export class TrumbowygEditor {
   }
 
   bind() {
-    let editorConfig = Container.instance.get('trumbowyg-editor-config');
+    const editorConfig = Container.instance.get('trumbowyg-editor-config');
     this.options = Object.assign({}, editorConfig, this.options);
+  }
+
+  updateValue() {
+    this.value = $(this.editor).trumbowyg('html');
   }
 
   attached() {
@@ -28,7 +32,11 @@ export class TrumbowygEditor {
     this.registerEvents(editor);
 
     editor.on('tbwchange', () => {
-      this.value = $(this.editor).trumbowyg('html');
+      this.updateValue();
+    });
+
+    editor.on('tbwpaste', () => {
+      this.updateValue();
     });
 
     $(this.editor).trumbowyg('html', this.value);
@@ -57,9 +65,9 @@ export class TrumbowygEditor {
     });
   }
 
-  valueChanged(newValue) {
+  /*valueChanged(newValue) {
     $(this.editor).trumbowyg('html', newValue);
-  }
+  }*/
 
   detached() {
     $(this.editor).trumbowyg('destroy');

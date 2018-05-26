@@ -84,6 +84,10 @@ var TrumbowygEditor = exports.TrumbowygEditor = (_dec = (0, _aureliaTemplating.i
     this.options = Object.assign({}, editorConfig, this.options);
   };
 
+  TrumbowygEditor.prototype.updateValue = function updateValue() {
+    this.value = (0, _jquery2.default)(this.editor).trumbowyg('html');
+  };
+
   TrumbowygEditor.prototype.attached = function attached() {
     var _this = this;
 
@@ -92,7 +96,11 @@ var TrumbowygEditor = exports.TrumbowygEditor = (_dec = (0, _aureliaTemplating.i
     this.registerEvents(editor);
 
     editor.on('tbwchange', function () {
-      _this.value = (0, _jquery2.default)(_this.editor).trumbowyg('html');
+      _this.updateValue();
+    });
+
+    editor.on('tbwpaste', function () {
+      _this.updateValue();
     });
 
     (0, _jquery2.default)(this.editor).trumbowyg('html', this.value);
@@ -112,10 +120,6 @@ var TrumbowygEditor = exports.TrumbowygEditor = (_dec = (0, _aureliaTemplating.i
         _this2.element.dispatchEvent(_event);
       });
     });
-  };
-
-  TrumbowygEditor.prototype.valueChanged = function valueChanged(newValue) {
-    (0, _jquery2.default)(this.editor).trumbowyg('html', newValue);
   };
 
   TrumbowygEditor.prototype.detached = function detached() {

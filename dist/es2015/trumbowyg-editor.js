@@ -61,8 +61,12 @@ export let TrumbowygEditor = (_dec = inlineView('<template><div ref="editor"></d
   }
 
   bind() {
-    let editorConfig = Container.instance.get('trumbowyg-editor-config');
+    const editorConfig = Container.instance.get('trumbowyg-editor-config');
     this.options = Object.assign({}, editorConfig, this.options);
+  }
+
+  updateValue() {
+    this.value = $(this.editor).trumbowyg('html');
   }
 
   attached() {
@@ -71,7 +75,11 @@ export let TrumbowygEditor = (_dec = inlineView('<template><div ref="editor"></d
     this.registerEvents(editor);
 
     editor.on('tbwchange', () => {
-      this.value = $(this.editor).trumbowyg('html');
+      this.updateValue();
+    });
+
+    editor.on('tbwpaste', () => {
+      this.updateValue();
     });
 
     $(this.editor).trumbowyg('html', this.value);
@@ -89,10 +97,6 @@ export let TrumbowygEditor = (_dec = inlineView('<template><div ref="editor"></d
         this.element.dispatchEvent(_event);
       });
     });
-  }
-
-  valueChanged(newValue) {
-    $(this.editor).trumbowyg('html', newValue);
   }
 
   detached() {

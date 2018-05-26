@@ -86,6 +86,10 @@ System.register(['jquery', 'trumbowyg', 'aurelia-pal', 'aurelia-binding', 'aurel
           this.options = Object.assign({}, editorConfig, this.options);
         };
 
+        TrumbowygEditor.prototype.updateValue = function updateValue() {
+          this.value = $(this.editor).trumbowyg('html');
+        };
+
         TrumbowygEditor.prototype.attached = function attached() {
           var _this = this;
 
@@ -94,7 +98,11 @@ System.register(['jquery', 'trumbowyg', 'aurelia-pal', 'aurelia-binding', 'aurel
           this.registerEvents(editor);
 
           editor.on('tbwchange', function () {
-            _this.value = $(_this.editor).trumbowyg('html');
+            _this.updateValue();
+          });
+
+          editor.on('tbwpaste', function () {
+            _this.updateValue();
           });
 
           $(this.editor).trumbowyg('html', this.value);
@@ -114,10 +122,6 @@ System.register(['jquery', 'trumbowyg', 'aurelia-pal', 'aurelia-binding', 'aurel
               _this2.element.dispatchEvent(_event);
             });
           });
-        };
-
-        TrumbowygEditor.prototype.valueChanged = function valueChanged(newValue) {
-          $(this.editor).trumbowyg('html', newValue);
         };
 
         TrumbowygEditor.prototype.detached = function detached() {
